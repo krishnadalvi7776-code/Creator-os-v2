@@ -15,6 +15,17 @@ app.get("/", (req, res) => {
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
+app.get("/models", async (req, res) => {
+  try {
+    const models = await ai.models.list();
+    res.json(models);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -53,9 +64,7 @@ app.post("/generate-video", async (req, res) => {
     });
   }
 });
-app.get("/", (req, res) => {
-  res.send("Creator OS Backend is Running 🚀");
-});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
