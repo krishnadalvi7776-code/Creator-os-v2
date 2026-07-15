@@ -33,58 +33,75 @@ import {
   sendPasswordResetEmail
 } from "./firebase.js";
 
+// LOGIN
 document.getElementById("loginBtn").addEventListener("click", async () => {
-
-  alert("Login button clicked");
 
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  if (!email || !password) {
+    alert("Please enter email and password.");
+    return;
+  }
+
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "dashboard.html";
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+    alert("Login Successful ✅");
+
+    setTimeout(() => {
+      window.location.href = "dashboard.html";
+    }, 500);
+
   } catch (e) {
-    console.log(e);
-    alert(
-      "Code: " + e.code +
-      "\nMessage: " + e.message +
-      "\nEmail: " + email
-    );
+    console.error(e);
+    alert("Login Failed!\n\n" + e.message);
   }
 });
 
-
+// SIGNUP
 document.getElementById("signupBtn").addEventListener("click", async () => {
 
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  if (!email || !password) {
+    alert("Please enter email and password.");
+    return;
+  }
+
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters.");
+    return;
+  }
+
   try {
     await createUserWithEmailAndPassword(auth, email, password);
-    alert("Account Created! Now login.");
+    alert("Account Created Successfully ✅\nNow Login.");
   } catch (e) {
-    alert(e.message);
+    console.error(e);
+    alert("Signup Failed!\n\n" + e.message);
   }
 });
 
-
+// FORGOT PASSWORD
 document.getElementById("forgotPassword").addEventListener("click", async () => {
 
   const email = document.getElementById("email").value.trim();
 
   if (!email) {
-    alert("Pehle apna email enter karo.");
+    alert("Please enter your email first.");
     return;
   }
 
   try {
     await sendPasswordResetEmail(auth, email);
-    alert("Password reset email bhej diya gaya hai.");
+    alert("Password reset email sent ✅");
   } catch (e) {
+    console.error(e);
     alert(e.message);
   }
 });
-
 </script>
 
 </body>
