@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator OS Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<!-- Firebase Auth Check -->
+<script type="module">
+import { auth, onAuthStateChanged } from "./firebase.js";
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  }
+});
+</script>
+
+<div class="dashboard-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <h2 class="sidebar-logo">🚀 Creator OS</h2>
+
+    <ul class="sidebar-menu">
+      <li class="active">🏠 Dashboard</li>
+      <li id="openChat">🤖 AI Chat</li>
+      <li id="openImage">🖼 AI Image</li>
+      <li>🎬 AI Video</li>
+      <li>🎵 AI Music</li>
+      <li>📝 AI Writer</li>
+
+      <hr>
+
+      <li>📂 My Projects</li>
+      <li>⭐ Favorites</li>
+      <li>🕘 History</li>
+
+      <hr>
+
+      <li>⚙️ Settings</li>
+    </ul>
+
+  </aside>
+
+  <!-- Main -->
+  <main class="dashboard-main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+
+      <div class="top-search">
+        🔍 Search AI tools...
+      </div>
+
+      <div class="top-actions">
+
+        <div class="notify-btn">
+          🔔
+        </div>
+
+        <div class="profile-box">
+          <span>👤 Krishna</span>
+          <button id="logoutBtn">Logout</button>
+        </div>
+
+      </div>
+
+    </header>
+        <!-- Analytics -->
+    <section class="analytics">
+
+      <div class="analytics-card">
+        <h3>👥 Total Users</h3>
+        <h2>10,245</h2>
+      </div>
+
+      <div class="analytics-card">
+        <h3>🤖 AI Requests</h3>
+        <h2>58,420</h2>
+      </div>
+
+      <div class="analytics-card">
+        <h3>⚡ AI Generations</h3>
+        <h2>124,900</h2>
+      </div>
+
+      <div class="analytics-card">
+        <h3>📈 Growth</h3>
+        <h2>+42%</h2>
+      </div>
+
+    </section>
+
+    <!-- Welcome Banner -->
+    <section class="welcome-banner">
+
+      <div class="welcome-left">
+        <h1>Welcome back, Krishna 👋</h1>
+
+        <p>
+          Your AI workspace is ready.
+          Create images, chat with AI and build amazing projects.
+        </p>
+
+        <button class="explore-btn">
+          🚀 Explore AI Tools
+        </button>
+
+      </div>
+
+      <div class="welcome-right">
+
+        <div class="welcome-card">
+          <h3>⚡ Creator OS</h3>
+          <p>All your AI tools in one powerful dashboard.</p>
+        </div>
+
+      </div>
+
+    </section>
+        <!-- Quick Actions -->
+    <section class="quick-actions">
+
+      <h2>⚡ Quick Actions</h2>
+
+      <div class="action-grid">
+        <div class="action-card">🤖 AI Chat</div>
+        <div class="action-card">🖼 AI Image</div>
+        <div class="action-card">🎬 AI Video</div>
+        <div class="action-card">🎵 AI Music</div>
+      </div>
+
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="recent-activity">
+
+      <h2>📋 Recent Activity</h2>
+
+      <div class="activity-card">
+        ✅ AI Chat is ready
+      </div>
+
+      <div class="activity-card">
+        🖼 AI Image Generator is ready
+      </div>
+
+      <div class="activity-card">
+        🎬 AI Video (Coming Soon)
+      </div>
+
+      <div class="activity-card">
+        📝 AI Writer (Coming Soon)
+      </div>
+
+    </section>
+      </main>
+
+</div>
+
+<!-- Logout -->
+<script type="module">
+import { auth, signOut } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+const logoutBtn = document.getElementById("logoutBtn");
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  }
+});
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "login.html";
+    } catch (error) {
+      alert(error.message);
+    }
+  });
+}
+</script>
+
+<script src="script.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

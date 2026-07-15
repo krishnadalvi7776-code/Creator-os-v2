@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator OS - AI Image</title>
+
+    <link rel="stylesheet" href="ai-image.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🖼 Creator OS AI Image</h1>
+        <p>Create stunning AI images with a single prompt.</p>
+    </div>
+
+    <div class="generator">
+
+        <textarea id="prompt" placeholder="Describe the image you want to generate..."></textarea>
+
+        <select id="style">
+            <option value="realistic">Realistic</option>
+            <option value="anime">Anime</option>
+            <option value="3d">3D Render</option>
+            <option value="cartoon">Cartoon</option>
+            <option value="cyberpunk">Cyberpunk</option>
+        </select>
+
+        <select id="aspectRatio">
+            <option value="1:1">Square (1:1)</option>
+            <option value="16:9">Landscape (16:9)</option>
+            <option value="9:16">Portrait (9:16)</option>
+        </select>
+
+        <button id="generateBtn">✨ Generate Image</button>
+
+        <div class="actions">
+            <button id="downloadBtn" type="button">⬇ Download</button>
+            <button id="regenerateBtn">🔄 Regenerate</button>
+        </div>
+
+    </div>
+
+    <img id="imageResult" src="" alt="Generated Image">
+
+    <p id="status">
+        Enter a prompt and click Generate.
+    </p>
+
+</div>
+
+<script src="ai-image.js"></script>
+
+</body>
+</html>

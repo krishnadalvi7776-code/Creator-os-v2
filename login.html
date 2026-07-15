@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+  <div class="login-card">
+
+    <h1>Creator OS</h1>
+
+    <input id="email" type="email" placeholder="Email"><br><br>
+    <input id="password" type="password" placeholder="Password"><br><br>
+
+    <button id="loginBtn">Login</button>
+    <button id="signupBtn">Signup</button>
+<p id="forgotPassword" style="color:#4da6ff; cursor:pointer; margin-top:10px;">
+  Forgot Password?
+</p>
+  </div>
+
+</div>
+
+<script type="module">
+import {
+  auth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail
+} from "./firebase.js";
+
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+const password = document.getElementById("password").value.trim();
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    window.location.href = "dashboard.html";
+  } catch (e) {
+  console.log(e);
+  alert(
+  "Code: " + e.code +
+  "\nMessage: " + e.message +
+  "\nEmail: " + email
+);
+}
+});
+document.getElementById("signupBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Account Created! Now login.");
+  } catch (e) {
+    alert(e.message);
+  }
+});
+document.getElementById("forgotPassword").addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    alert("Pehle apna email enter karo.");
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset email bhej diya gaya hai.");
+  } catch (e) {
+    alert(e.message);
+  }
+});
+</script>
+
+</body>
+</html>
