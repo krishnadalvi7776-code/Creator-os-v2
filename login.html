@@ -34,23 +34,31 @@ import {
 } from "./firebase.js";
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
+
+  alert("Login button clicked");
+
   const email = document.getElementById("email").value.trim();
-const password = document.getElementById("password").value.trim();
+  const password = document.getElementById("password").value.trim();
+
   try {
     await signInWithEmailAndPassword(auth, email, password);
     window.location.href = "dashboard.html";
   } catch (e) {
-  console.log(e);
-  alert(
-  "Code: " + e.code +
-  "\nMessage: " + e.message +
-  "\nEmail: " + email
-);
-}
+    console.log(e);
+    alert(
+      "Code: " + e.code +
+      "\nMessage: " + e.message +
+      "\nEmail: " + email
+    );
+  }
 });
+
+
 document.getElementById("signupBtn").addEventListener("click", async () => {
+
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
+
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     alert("Account Created! Now login.");
@@ -58,7 +66,10 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
     alert(e.message);
   }
 });
+
+
 document.getElementById("forgotPassword").addEventListener("click", async () => {
+
   const email = document.getElementById("email").value.trim();
 
   if (!email) {
@@ -73,6 +84,7 @@ document.getElementById("forgotPassword").addEventListener("click", async () => 
     alert(e.message);
   }
 });
+
 </script>
 
 </body>
