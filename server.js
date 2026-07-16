@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
-
+import fetch from "node-fetch";
 dotenv.config();
 
 const app = express();
