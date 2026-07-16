@@ -1,34 +1,56 @@
 const generateBtn = document.getElementById("generateVideoBtn");
 
-const prompt = document.getElementById("videoPrompt");
-const style = document.getElementById("videoStyle");
+const promptInput = document.getElementById("videoPrompt");
+const styleInput = document.getElementById("videoStyle");
 
 const status = document.getElementById("videoStatus");
 const result = document.getElementById("videoResult");
 
 
-generateBtn.addEventListener("click", () => {
+generateBtn.addEventListener("click", async () => {
 
-    if(prompt.value.trim() === ""){
+    const prompt = promptInput.value.trim();
+    const style = styleInput.value;
+
+    if (!prompt) {
         alert("Please enter a video prompt");
         return;
     }
 
     status.innerHTML = "⏳ Creating your AI video...";
+    result.innerHTML = "";
+
+    try {
+
+        const response = await fetch("https://creator-os-in7s.onrender.com/generate-video", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                prompt: `${style} style: ${prompt}`
+            })
+        });
 
 
-    setTimeout(() => {
+        const data = await response.json();
 
-        status.innerHTML = "✅ Video generated successfully!";
+        console.log(data);
+
+        status.innerHTML = "✅ Video request completed";
 
         result.innerHTML = `
-        <h3>Your AI Video Preview</h3>
-
-        <video width="100%" controls>
-            <source src="demo-video.mp4" type="video/mp4">
-        </video>
+        <h3>AI Video Result</h3>
+        <pre>${JSON.stringify(data, null, 2)}</pre>
         `;
 
-    },3000);
+
+    } catch(error){
+
+        console.error(error);
+
+        status.innerHTML = "❌ Video generation failed";
+
+    }
 
 });
