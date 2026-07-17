@@ -70,7 +70,7 @@ app.post("/generate-video", async (req, res) => {
 
     // Pollinations Video URL
     const videoUrl =
-      `https://gen.pollinations.ai/video/${encodeURIComponent(finalPrompt)}`;
+      `https://gen.pollinations.ai/video/${encodeURIComponent(finalPrompt)}`;console.log(videoUrl);
 
     res.json({
       success: true,
