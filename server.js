@@ -49,30 +49,49 @@ app.post("/chat", async (req, res) => {
 });
 app.post("/generate-video", async (req, res) => {
   try {
-    const { prompt } = req.body;
+
+    const {
+      prompt,
+      style,
+      duration,
+      aspect
+    } = req.body;
 
     if (!prompt) {
       return res.status(400).json({
+        success: false,
         error: "Prompt required"
       });
     }
 
+    // Build prompt
+    const finalPrompt =
+      `${style} style, ${prompt}`;
+
+    // Pollinations Video URL
     const videoUrl =
-      `https://gen.pollinations.ai/video/${encodeURIComponent(prompt)}`;
+      `https://gen.pollinations.ai/video/${encodeURIComponent(finalPrompt)}`;
 
     res.json({
       success: true,
       status: "completed",
+
+      prompt: finalPrompt,
+      duration,
+      aspect,
+
       videoUrl
     });
 
   } catch (error) {
-    console.error("Video Error:", error);
+
+    console.error(error);
 
     res.status(500).json({
       success: false,
       error: error.message
     });
+
   }
 });
 
