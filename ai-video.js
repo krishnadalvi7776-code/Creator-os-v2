@@ -35,21 +35,32 @@ generateBtn.addEventListener("click", async () => {
 
     const data = await response.json();
 
-    console.log(data);
+console.log(data);
 
-    status.innerHTML = "✅ Response received";
+if (!data.success) {
+  throw new Error(data.error || "Video generation failed");
+}
 
-    result.innerHTML = `
-      <h3>AI Video Response</h3>
-      <pre>${JSON.stringify(data, null, 2)}</pre>
-    `;
+status.innerHTML = "✅ Video Ready!";
 
+result.innerHTML = `
+  <video controls width="100%" style="border-radius:12px;">
+    <source src="${data.videoUrl}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <br><br>
+
+  <a href="${data.videoUrl}" target="_blank">
+    📥 Download Video
+  </a>
+`;
 
   } catch (error) {
 
-    console.error(error);
+  console.error(error);
 
-    status.innerHTML = "❌ Error generating video";
+  status.innerHTML = `❌ ${error.message}`;
 
   }
 
