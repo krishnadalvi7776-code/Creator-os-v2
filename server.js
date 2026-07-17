@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
-import fetch from "node-fetch";
+
 dotenv.config();
 
 const app = express();
@@ -51,17 +51,26 @@ app.post("/generate-video", async (req, res) => {
   try {
     const { prompt } = req.body;
 
-    const response = await ai.models.generateVideos({
-      model: "veo-3.1-generate-preview",
-      prompt,
+    if (!prompt) {
+      return res.status(400).json({
+        error: "Prompt required"
+      });
+    }
+
+    const videoUrl =
+      `https://gen.pollinations.ai/video/${encodeURIComponent(prompt)}`;
+
+    res.json({
+      success: true,
+      status: "completed",
+      videoUrl
     });
 
-    res.json(response);
-
   } catch (error) {
-    console.error(error);
+    console.error("Video Error:", error);
 
     res.status(500).json({
+      success: false,
       error: error.message
     });
   }
