@@ -94,7 +94,50 @@ app.post("/generate-video", async (req, res) => {
 
   }
 });
+app.post("/brain", async (req, res) => {
+  try {
+    const { message } = req.body;
 
+    const prompt = `
+You are Creator OS Brain.
+
+Your job is NOT to answer the user.
+
+Only decide which tool should handle the request.
+
+Available tools:
+
+chat
+image
+video
+translate
+pdf
+
+Reply ONLY with one word.
+
+User:
+${message}
+`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-flash-lite-latest",
+      contents: prompt,
+    });
+
+    const tool = response.text.trim().toLowerCase();
+
+    res.json({
+      tool
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
