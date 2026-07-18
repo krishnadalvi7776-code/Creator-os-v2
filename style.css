@@ -758,3 +758,110 @@ transition:.3s;
 .login-card button:hover{
 transform:translateY(-3px);
 }
+/*=========================
+  CREATOR OS LAMP LOGIN
+=========================*/
+
+.login-container{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.login-container::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    radial-gradient(circle at top,
+    rgba(255,245,180,.35),
+    transparent 45%);
+    pointer-events:none;
+}
+
+.lamp-area{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:5;
+}
+
+.lamp-top{
+    width:140px;
+    height:70px;
+    background:#222;
+    border-radius:70px 70px 20px 20px;
+    box-shadow:0 0 25px rgba(255,255,255,.15);
+}
+
+.lamp-stand{
+    width:6px;
+    height:30px;
+    background:#999;
+    margin:auto;
+}
+
+.lamp-base{
+    width:28px;
+    height:28px;
+    background:#ffe082;
+    border-radius:50%;
+    margin:auto;
+    box-shadow:
+        0 0 25px #ffe082,
+        0 0 60px #ffd54f,
+        0 0 120px rgba(255,235,59,.5);
+}
+
+.chain{
+    width:3px;
+    height:80px;
+    background:#ddd;
+    margin:auto;
+    cursor:pointer;
+}
+
+.login-card{
+    position:relative;
+    z-index:10;
+    margin-top:120px;
+    backdrop-filter:blur(25px);
+    transition:.4s;
+}
+
+.login-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 0 60px rgba(255,255,255,.15);
+}
+
+#forgotPassword{
+    margin-top:18px;
+    color:#8fd8ff;
+    cursor:pointer;
+}
+
+#forgotPassword:hover{
+    color:#fff;
+}
+
+@media(max-width:768px){
+
+.lamp-top{
+    width:100px;
+    height:55px;
+}
+
+.chain{
+    height:65px;
+}
+
+.login-card{
+    margin-top:90px;
+    width:92%;
+}
+}
